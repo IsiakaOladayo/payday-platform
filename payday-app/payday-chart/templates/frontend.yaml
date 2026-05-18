@@ -4,7 +4,7 @@ metadata:
   name: payday-frontend
   namespace: {{ .Release.Namespace }}
 spec:
-  replicas: 2
+  replicas: {{ .Values.frontend.replicaCount | default 2 }}
   selector:
     matchLabels:
       app: payday-frontend
@@ -14,10 +14,10 @@ spec:
         app: payday-frontend
     spec:
       containers:
-      - name: frontend
-        image: {{ .Values.frontend.image }}
-        ports:
-        - containerPort: 80
+        - name: frontend
+          image: '{{ .Values.frontend.image.repository }}:{{ .Values.frontend.image.tag | default "latest" }}'
+          ports:
+            - containerPort: 80
 ---
 apiVersion: v1
 kind: Service
@@ -27,7 +27,8 @@ metadata:
 spec:
   type: ClusterIP
   ports:
-  - port: 80
-    targetPort: 80
+    - port: 80
+      targetPort: 80
   selector:
     app: payday-frontend
+

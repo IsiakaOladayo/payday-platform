@@ -5,6 +5,8 @@ metadata:
   namespace: {{ .Release.Namespace }}
 spec:
   replicas: 1
+  strategy:
+    type: Recreate
   selector:
     matchLabels:
       app: payday-postgres
@@ -14,24 +16,25 @@ spec:
         app: payday-postgres
     spec:
       containers:
-      - name: postgres
-        image: {{ .Values.postgresql.image }}
-        ports:
-        - containerPort: 5432
-        env:
-        - name: POSTGRES_DB
-          value: "payday_ledger"
-        - name: POSTGRES_USER
-          value: "payday_admin"
-        - name: POSTGRES_PASSWORD
-          value: "vault_secret_pass"
-        volumeMounts:
-        - name: postgres-storage
-          mountPath: /var/lib/postgresql/data
+        - name: postgres
+          # FIXED: Outer single quotes protect the middle colon from breaking YAML, while double quotes specify defaults safely
+          image: '{{ .Values.postgresql.image.repository | default "postgres" }}:{{ .Values.postgresql.image.tag | default "15-alpine" }}'
+          ports:
+            - containerPort: 5432
+          env:
+            - name: POSTGRES_DB
+              value: {{ .Values.postgresql.dbName | default "payday_ledger" }}
+            - name: POSTGRES_USER
+              value: {{ .Values.postgresql.user | default "payday_admin" }}
+            - name: POSTGRES_PASSWORD
+              value: {{ .Values.postgresql.password | default "vault_secret_pass" }}
+          volumeMounts:
+            - name: postgres-storage
+              mountPath: /var/lib/postgresql/data
       volumes:
-      - name: postgres-storage
-        persistentVolumeClaim:
-          claimName: payday-postgres-pvc
+        - name: postgres-storage
+          persistentVolumeClaim:
+            claimName: payday-postgres-pvc
 ---
 apiVersion: v1
 kind: Service
@@ -39,21 +42,8 @@ metadata:
   name: payday-postgres-service
   namespace: {{ .Release.Namespace }}
 spec:
-  type: ClusterIP
   ports:
-  - port: 5432
-    targetPort: 5432
+    - port: 5432
+      targetPort: 5432
   selector:
     app: payday-postgres
----
-apiVersion: v1
-kind: PersistentVolumeClaim
-metadata:
-  name: payday-postgres-pvc
-  namespace: {{ .Release.Namespace }}
-spec:
-  accessModes:
-    - ReadWriteOnce
-  resources:
-    requests:
-      storage: 10Gi

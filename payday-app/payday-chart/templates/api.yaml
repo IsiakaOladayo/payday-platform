@@ -4,7 +4,7 @@ metadata:
   name: payday-api
   namespace: {{ .Release.Namespace }}
 spec:
-  replicas: 2
+  replicas: {{ .Values.api.replicaCount | default 2 }}
   selector:
     matchLabels:
       app: payday-api
@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
         - name: api
-          image: {{ .Values.api.image }}
+          image: '{{ .Values.api.image.repository }}:{{ .Values.api.image.tag | default "latest" }}'
           ports:
             - containerPort: 5000
           env:

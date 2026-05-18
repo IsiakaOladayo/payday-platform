@@ -1,15 +1,29 @@
 # Master Control Panel Values for Payday Platform
 
 frontend:
-  image: "nginx:alpine"
+  image:
+    repository: nginx
+    tag: alpine
+  replicaCount: 2
 
 api:
-  image: "python:3.9-slim"
+  image:
+    repository: python
+    tag: 3.9-slim
   entrypoint: ["tail", "-f", "/dev/null"]
+  replicaCount: 2
 
 worker:
-  image: "python:3.9-slim"
+  image:
+    repository: python
+    tag: 3.9-slim
   entrypoint: ["tail", "-f", "/dev/null"]
+  replicaCount: 1
 
 postgresql:
-  image: "postgres:15-alpine"
+  image:
+    repository: postgres
+    tag: 15-alpine
+  dbName: payday_ledger
+  user: payday_admin
+  password: vault_secret_pass
