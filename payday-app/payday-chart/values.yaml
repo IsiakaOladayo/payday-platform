@@ -5,9 +5,11 @@ frontend:
 
 api:
   image: "python:3.9-slim"
+  entrypoint: ["tail", "-f", "/dev/null"]
 
 worker:
   image: "python:3.9-slim"
+  entrypoint: ["tail", "-f", "/dev/null"]
 
 postgresql:
   image: "postgres:15-alpine"
