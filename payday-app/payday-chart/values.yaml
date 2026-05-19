@@ -8,13 +8,13 @@ frontend:
 
 api:
   image:
-    repository: dupebayo1619/payday-api
+    repository: 618015514540.dkr.ecr.us-east-1.amazonaws.com/payday/api
     tag: latest
   replicaCount: 2
 
 worker:
   image:
-    repository: dupebayo1619/payday-worker
+    repository: 618015514540.dkr.ecr.us-east-1.amazonaws.com/payday/worker
     tag: latest
   replicaCount: 1
 
