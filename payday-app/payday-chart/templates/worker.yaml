@@ -21,3 +21,5 @@ spec:
               value: "payday-postgres-service"
             - name: DB_PASSWORD
               value: "vault_secret_pass"
+            - name: REDIS_HOST
+              value: "redis-service"
