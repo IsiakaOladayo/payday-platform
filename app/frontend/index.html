@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"><title>Payday Dashboard</title>
+  <style>
+    body{font-family:Calibri,sans-serif;background:#0D1B2A;color:#fff;padding:2rem}
+    h1{color:#00A896}
+    table{width:100%;border-collapse:collapse;margin-top:1rem}
+    th,td{padding:.6rem 1rem;border:1px solid #334;text-align:left}
+    th{background:#00A896;color:#fff}
+    tr:nth-child(even){background:#1a2a3a}
+    .completed{color:#43AA8B}.pending{color:#F9C74F}
+    button{background:#00A896;color:#fff;border:none;padding:.5rem 1.2rem;
+           border-radius:4px;cursor:pointer;margin-top:1rem}
+  </style>
+</head>
+<body>
+  <h1>Payday Payments Dashboard</h1>
+  <p>Version: <strong id="ver">loading...</strong></p>
+  <button onclick="load()">Refresh</button>
+  <table>
+    <thead><tr><th>ID</th><th>Amount</th><th>Currency</th><th>Status</th><th>Created</th></tr></thead>
+    <tbody id="tbl"></tbody>
+  </table>
+  <script>
+    async function load(){
+      const r=await fetch('/api/payments'), d=await r.json();
+      document.getElementById('tbl').innerHTML=d.map(p=>
+        `<tr><td>${p.id}</td><td>${p.amount}</td><td>${p.currency}</td>
+        <td class="${p.status}">${p.status}</td><td>${p.created_at}</td></tr>`
+      ).join('');
+    }
+    async function ver(){
+      const r=await fetch('/api/health'),d=await r.json();
+      document.getElementById('ver').textContent=d.version;
+    }
+    load();ver();setInterval(load,30000);
+  </script>
+</body>
+</html>

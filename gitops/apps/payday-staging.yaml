@@ -1,0 +1,23 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: payday-staging
+  namespace: argocd
+spec:
+  project: default
+  source:
+    repoURL: https://github.com/YOUR-ORG/payday-platform
+    targetRevision: HEAD
+    path: helm/payday
+    helm:
+      valueFiles: [values-staging.yaml]
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: staging
+  syncPolicy:
+    automated: { prune: true, selfHeal: true }
+kubectl apply -f gitops/apps/payday-staging.yaml
+kubectl apply -f gitops/apps/payday-production.yaml
+ 
+argocd app sync payday-staging
+argocd app get  payday-staging

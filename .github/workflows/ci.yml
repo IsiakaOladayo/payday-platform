@@ -1,0 +1,79 @@
+name: CI/CD Pipeline
+on:
+  push:         { branches: [main, staging] }
+  pull_request: { branches: [main] }
+ 
+env:
+  AWS_REGION:   us-east-1
+  ECR_REGISTRY: ${{ secrets.AWS_ACCOUNT_ID }}.dkr.ecr.us-east-1.amazonaws.com
+ 
+jobs:
+  test:
+    name: Run Tests
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: { python-version: "3.12" }
+      - run: pip install -r app/api/requirements.txt pytest
+      - run: pytest app/api/tests/ -v --tb=short
+ 
+  build-scan-push:
+    name: Build Scan Push — ${{ matrix.service }}
+    runs-on: ubuntu-latest
+    needs: test
+    strategy:
+      matrix: { service: [frontend, api, worker] }
+    steps:
+      - uses: actions/checkout@v4
+      - uses: aws-actions/configure-aws-credentials@v4
+        with:
+          aws-access-key-id:     ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: ${{ env.AWS_REGION }}
+      - uses: aws-actions/amazon-ecr-login@v2
+      - name: Build
+        run: docker build -t payday/${{ matrix.service }}:${{ github.sha }} app/${{ matrix.service }}/
+      - name: Scan (Trivy)
+        uses: aquasecurity/trivy-action@master
+        with:
+          image-ref: payday/${{ matrix.service }}:${{ github.sha }}
+          format:    table
+          exit-code: 1
+          severity:  CRITICAL,HIGH
+      - name: Push to ECR
+        run: |
+          docker tag payday/${{ matrix.service }}:${{ github.sha }} \
+            ${{ env.ECR_REGISTRY }}/payday/${{ matrix.service }}:${{ github.sha }}
+          docker push ${{ env.ECR_REGISTRY }}/payday/${{ matrix.service }}:${{ github.sha }}
+ 
+  deploy-staging:
+    name: Deploy to Staging
+    runs-on: ubuntu-latest
+    needs: build-scan-push
+    if: github.ref == 'refs/heads/staging'
+    steps:
+      - uses: actions/checkout@v4
+      - name: Update image tag (triggers Argo CD)
+        run: |
+          sed -i "s/tag:.*/tag: ${{ github.sha }}/" helm/payday/values-staging.yaml
+          git config user.email "ci@payday.com"
+          git config user.name  "CI Bot"
+          git add helm/payday/values-staging.yaml
+          git commit -m "ci: staging image → ${{ github.sha }}"
+          git push
+ 
+  deploy-production:
+    name: Deploy to Production
+    runs-on: ubuntu-latest
+    needs: deploy-staging
+    environment:
+      name: production    # manual approval required
+    steps:
+      - uses: actions/checkout@v4
+      - name: Promote to production
+        run: |
+          sed -i "s/tag:.*/tag: ${{ github.sha }}/" helm/payday/values-production.yaml
+          git add helm/payday/values-production.yaml
+          git commit -m "ci: production image → ${{ github.sha }}"
+          git push
