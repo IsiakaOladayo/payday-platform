@@ -8,16 +8,14 @@ frontend:
 
 api:
   image:
-    repository: python
-    tag: 3.9-slim
-  entrypoint: ["tail", "-f", "/dev/null"]
+    repository: dupebayo1619/payday-api
+    tag: latest
   replicaCount: 2
 
 worker:
   image:
-    repository: python
-    tag: 3.9-slim
-  entrypoint: ["tail", "-f", "/dev/null"]
+    repository: dupebayo1619/payday-worker
+    tag: latest
   replicaCount: 1
 
 postgresql:
