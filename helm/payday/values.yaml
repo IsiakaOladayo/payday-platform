@@ -1,0 +1,11 @@
+image:
+  registry: <ACCOUNT_ID>.dkr.ecr.us-east-1.amazonaws.com
+  tag: latest
+api:       { replicas: 2, port: 5000 }
+frontend:  { replicas: 1, port: 80  }
+worker:    { replicas: 1            }
+postgres:
+  image:    postgres:15-alpine
+  storage:  5Gi
+  database: payday
+  user:     payday
