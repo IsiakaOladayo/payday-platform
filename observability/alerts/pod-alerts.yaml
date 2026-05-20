@@ -1,0 +1,17 @@
+groups:
+- name: pod-alerts
+
+  rules:
+
+  - alert: CrashLoopDetected
+
+    expr:
+      increase(
+        kube_pod_container_status_restarts_total[5m]
+      ) > 5
+
+    labels:
+      severity: critical
+
+    annotations:
+      summary: Pod restart threshold exceeded
