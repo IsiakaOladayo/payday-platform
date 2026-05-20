@@ -6,14 +6,14 @@ api:
   replicaCount: 1
   image:
     repository: 618015514540.dkr.ecr.us-east-1.amazonaws.com/payday/api
-    tag: stable
+    tag: latest
 
 # Frontend specific settings
 frontend:
   replicaCount: 1
   image:
     repository: 618015514540.dkr.ecr.us-east-1.amazonaws.com/payday/frontend
-    tag: stable
+    tag: latest
 
 # Worker specific settings
 worker:
