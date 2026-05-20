@@ -4,7 +4,7 @@ metadata:
   name: payday-frontend
   namespace: {{ .Release.Namespace }}
 spec:
-  replicas: {{ .Values.frontend.replicaCount | default 2 }}
+  replicas: {{ .Values.frontend.replicaCount | default 3 }}
   selector:
     matchLabels:
       app: payday-frontend

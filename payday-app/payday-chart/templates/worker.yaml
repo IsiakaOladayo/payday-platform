@@ -4,7 +4,7 @@ metadata:
   name: payday-worker
   namespace: {{ .Release.Namespace }}
 spec:
-  replicas: {{ .Values.replicaCount }}
+  replicas: {{ .Values.worker.replicaCount | default 3 }}
   selector:
     matchLabels:
       app: payday-worker
