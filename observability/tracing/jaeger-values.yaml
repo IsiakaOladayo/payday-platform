@@ -1,0 +1,11 @@
+allInOne:
+  enabled: true
+
+storage:
+  type: memory
+
+collector:
+  enabled: true
+
+query:
+  enabled: true
