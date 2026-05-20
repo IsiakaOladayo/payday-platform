@@ -1,16 +1,16 @@
 # Global worker settings
-replicaCount: 3
+replicaCount: 1
 
 # API specific settings
 api:
-  replicaCount: 3
+  replicaCount: 1
   image:
     repository: 618015514540.dkr.ecr.us-east-1.amazonaws.com/payday/api
     tag: stable
 
 # Frontend specific settings
 frontend:
-  replicaCount: 3
+  replicaCount: 1
   image:
     repository: 618015514540.dkr.ecr.us-east-1.amazonaws.com/payday/frontend
     tag: stable
