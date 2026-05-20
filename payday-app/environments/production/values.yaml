@@ -1,0 +1,36 @@
+# Global worker settings
+replicaCount: 3
+
+# API specific settings
+api:
+  replicaCount: 3
+  image:
+    repository: my-repo/payday-api
+    tag: stable
+
+# Frontend specific settings
+frontend:
+  replicaCount: 3
+  image:
+    repository: my-repo/payday-frontend
+    tag: stable
+
+# Worker specific settings
+worker:
+  image:
+    repository: 618015514540.dkr.ecr.us-east-1.amazonaws.com/payday/worker
+    tag: latest
+
+# Shared infrastructure resources
+resources:
+  limits:
+    cpu: 500m
+    memory: 512Mi
+  requests:
+    cpu: 250m
+    memory: 256Mi
+
+# Database persistence
+persistence:
+  enabled: true
+  size: 10Gi

@@ -4,7 +4,7 @@ metadata:
   name: payday-worker
   namespace: {{ .Release.Namespace }}
 spec:
-  replicas: {{ .Values.worker.replicaCount | default 1 }}
+  replicas: {{ .Values.replicaCount }}
   selector:
     matchLabels:
       app: payday-worker
@@ -16,6 +16,7 @@ spec:
       containers:
         - name: worker
           image: '{{ .Values.worker.image.repository }}:{{ .Values.worker.image.tag | default "latest" }}'
+          imagePullPolicy: Always
           env:
             - name: DB_HOST
               value: "payday-postgres-service"
