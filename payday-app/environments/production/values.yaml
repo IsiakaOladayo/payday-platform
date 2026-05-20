@@ -1,22 +1,21 @@
-# Global worker settings
-replicaCount: 1
 
 # API specific settings
 api:
-  replicaCount: 1
+  replicaCount: 2
   image:
     repository: 618015514540.dkr.ecr.us-east-1.amazonaws.com/payday/api
     tag: latest
 
 # Frontend specific settings
 frontend:
-  replicaCount: 1
+  replicaCount: 2
   image:
     repository: 618015514540.dkr.ecr.us-east-1.amazonaws.com/payday/frontend
     tag: latest
 
 # Worker specific settings
 worker:
+  replicaCount: 2
   image:
     repository: 618015514540.dkr.ecr.us-east-1.amazonaws.com/payday/worker
     tag: latest
