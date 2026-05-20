@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: redis-service
+  namespace: {{ .Release.Namespace }}
+spec:
+  selector:
+    app: redis  # This label MUST match your Redis pod's label
+  ports:
+    - protocol: TCP
+      port: 6379
+      targetPort: 6379
