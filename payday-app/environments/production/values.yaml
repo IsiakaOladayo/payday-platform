@@ -5,14 +5,14 @@ replicaCount: 3
 api:
   replicaCount: 3
   image:
-    repository: my-repo/payday-api
+    repository: 618015514540.dkr.ecr.us-east-1.amazonaws.com/payday/api
     tag: stable
 
 # Frontend specific settings
 frontend:
   replicaCount: 3
   image:
-    repository: my-repo/payday-frontend
+    repository: 618015514540.dkr.ecr.us-east-1.amazonaws.com/payday/frontend
     tag: stable
 
 # Worker specific settings
