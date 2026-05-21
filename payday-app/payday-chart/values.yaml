@@ -4,19 +4,19 @@ frontend:
   image:
     repository: nginx
     tag: alpine
-  replicaCount: 2
+  replicaCount: 1
 
 api:
   image:
     repository: 618015514540.dkr.ecr.us-east-1.amazonaws.com/payday/api
     tag: latest
-  replicaCount: 2
+  replicaCount: 1
 
 worker:
   image:
     repository: 618015514540.dkr.ecr.us-east-1.amazonaws.com/payday/worker
     tag: latest
-  replicaCount: 2
+  replicaCount: 1
 
 postgresql:
   image:
