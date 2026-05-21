@@ -1,0 +1,23 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Rollout
+metadata:
+  name: api
+  namespace: {{ .Release.Namespace }}
+spec:
+  replicas: {{ .Values.api.replicas }}
+  strategy:
+    canary:
+      steps:
+        - setWeight: 10         # 10% traffic to new version
+        - pause: {}             # wait for manual approval
+        - setWeight: 50         # 50% traffic
+        - pause: { duration: 60s }
+        - setWeight: 100        # full rollout
+  selector:    { matchLabels: { app: api } }
+  template:
+    metadata: { labels: { app: api } }
+    spec:
+      containers:
+        - name:  api
+          image: {{ .Values.image.registry }}/payday/api:{{ .Values.image.tag }}
+          ports: [{ containerPort: 5000 }]
