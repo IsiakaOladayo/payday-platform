@@ -4,20 +4,18 @@ frontend:
   image:
     repository: nginx
     tag: alpine
-  replicaCount: 2
+  replicaCount: 1
 
 api:
   image:
-    repository: python
-    tag: 3.9-slim
-  entrypoint: ["tail", "-f", "/dev/null"]
-  replicaCount: 2
+    repository: 618015514540.dkr.ecr.us-east-1.amazonaws.com/payday/api
+    tag: latest
+  replicaCount: 1
 
 worker:
   image:
-    repository: python
-    tag: 3.9-slim
-  entrypoint: ["tail", "-f", "/dev/null"]
+    repository: 618015514540.dkr.ecr.us-east-1.amazonaws.com/payday/worker
+    tag: latest
   replicaCount: 1
 
 postgresql:
