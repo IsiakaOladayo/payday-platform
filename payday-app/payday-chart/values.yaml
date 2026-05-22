@@ -1,27 +1,37 @@
-# Master Control Panel Values for Payday Platform
+namespace: staging
 
 frontend:
+  name: payday-frontend
   image:
     repository: 618015514540.dkr.ecr.us-east-1.amazonaws.com/payday/frontend
     tag: latest
-  replicaCount: 1
+  port: 80
+  replicas: 1
 
 api:
+  name: payday-api
   image:
     repository: 618015514540.dkr.ecr.us-east-1.amazonaws.com/payday/api
     tag: latest
-  replicaCount: 1
+  port: 5000
+  replicas: 1
 
 worker:
+  name: payday-worker
   image:
     repository: 618015514540.dkr.ecr.us-east-1.amazonaws.com/payday/worker
     tag: latest
-  replicaCount: 1
+  replicas: 1
 
-postgresql:
-  image:
-    repository: postgres
-    tag: 15-alpine
-  dbName: payday_ledger
-  user: payday_admin
-  password: vault_secret_pass
+postgres:
+  name: postgres
+  image: postgres:15-alpine
+  port: 5432
+  storage: 1Gi
+  password: postgres
+  database: paydaydb
+
+redis:
+  name: redis
+  image: redis:7-alpine
+  port: 6379

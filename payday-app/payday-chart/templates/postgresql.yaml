@@ -1,35 +1,56 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: payday-postgres
-  namespace: {{ .Release.Namespace }}
+  name: {{ .Values.postgres.name }}
+  namespace: {{ .Values.namespace }}
 spec:
   replicas: 1
-  strategy:
-    type: Recreate
   selector:
     matchLabels:
-      app: payday-postgres
+      app: {{ .Values.postgres.name }}
   template:
     metadata:
       labels:
-        app: payday-postgres
+        app: {{ .Values.postgres.name }}
     spec:
       containers:
-        - name: postgres
-          image: '{{ .Values.postgresql.image.repository | default "postgres" }}:{{ .Values.postgresql.image.tag | default "15-alpine" }}'
-          ports:
-            - containerPort: 5432
-          env:
-            - name: POSTGRES_DB
-              value: {{ .Values.postgresql.dbName | default "payday_ledger" }}
-            - name: POSTGRES_USER
-              value: {{ .Values.postgresql.user | default "payday_admin" }}
-            - name: POSTGRES_PASSWORD
-              value: {{ .Values.postgresql.password | default "vault_secret_pass" }}
-          volumeMounts:
-            - name: postgres-storage
-              mountPath: /var/lib/postgresql/data
-      volumes:
+      - name: postgres
+        image: {{ .Values.postgres.image }}
+        ports:
+        - containerPort: {{ .Values.postgres.port }}
+        env:
+        - name: POSTGRES_PASSWORD
+          value: {{ .Values.postgres.password }}
+        - name: POSTGRES_DB
+          value: {{ .Values.postgres.database }}
+        volumeMounts:
         - name: postgres-storage
-          emptyDir: {}
+          mountPath: /var/lib/postgresql/data
+      volumes:
+      - name: postgres-storage
+        persistentVolumeClaim:
+          claimName: postgres-pvc
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: postgres-pvc
+  namespace: {{ .Values.namespace }}
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: {{ .Values.postgres.storage }}
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ .Values.postgres.name }}
+  namespace: {{ .Values.namespace }}
+spec:
+  selector:
+    app: {{ .Values.postgres.name }}
+  ports:
+  - port: {{ .Values.postgres.port }}
+    targetPort: {{ .Values.postgres.port }}

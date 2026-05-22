@@ -1,38 +1,43 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: payday-api
-  namespace: {{ .Release.Namespace }}
+  name: {{ .Values.api.name }}
+  namespace: {{ .Values.namespace }}
 spec:
-  replicas: {{ .Values.api.replicaCount | default 3 }}
+  replicas: {{ .Values.api.replicas }}
   selector:
     matchLabels:
-      app: payday-api
+      app: {{ .Values.api.name }}
   template:
     metadata:
       labels:
-        app: payday-api
+        app: {{ .Values.api.name }}
     spec:
       containers:
-        - name: api
-          image: '{{ .Values.api.image.repository }}:{{ .Values.api.image.tag | default "latest" }}'
-          ports:
-            - containerPort: 5000
-          env:
-            - name: DB_HOST
-              value: "payday-postgres-service"
-            - name: DB_PASSWORD
-              value: "vault_secret_pass"
+      - name: api
+        image: "{{ .Values.api.image.repository }}:{{ .Values.api.image.tag }}"
+        ports:
+        - containerPort: {{ .Values.api.port }}
+        env:
+        - name: DB_HOST
+          value: {{ .Values.postgres.name }}
+        - name: DB_NAME
+          value: {{ .Values.postgres.database }}
+        - name: DB_USER
+          value: postgres
+        - name: DB_PASSWORD
+          value: {{ .Values.postgres.password }}
+        - name: REDIS_HOST
+          value: {{ .Values.redis.name }}
 ---
 apiVersion: v1
 kind: Service
 metadata:
-  name: payday-api-service
-  namespace: {{ .Release.Namespace }}
+  name: {{ .Values.api.name }}
+  namespace: {{ .Values.namespace }}
 spec:
-  type: ClusterIP
-  ports:
-    - port: 5000
-      targetPort: 5000
   selector:
-    app: payday-api
+    app: {{ .Values.api.name }}
+  ports:
+  - port: {{ .Values.api.port }}
+    targetPort: {{ .Values.api.port }}
