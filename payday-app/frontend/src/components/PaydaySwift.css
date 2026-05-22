@@ -1,0 +1,720 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.payday-container {
+  min-height: 100vh;
+  background: linear-gradient(135deg, #0f0c29 0%, #302b63 50%, #24243e 100%);
+  position: relative;
+  overflow-x: hidden;
+}
+
+.bg-pattern {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-image: radial-gradient(circle at 25% 50%, rgba(255,255,255,0.05) 1%, transparent 1%);
+  background-size: 50px 50px;
+  pointer-events: none;
+}
+
+.payday-dashboard {
+  display: flex;
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 20px;
+  gap: 24px;
+  position: relative;
+  z-index: 1;
+}
+
+/* Sidebar */
+.sidebar {
+  width: 240px;
+  background: rgba(255,255,255,0.05);
+  backdrop-filter: blur(10px);
+  border-radius: 24px;
+  padding: 24px;
+  height: fit-content;
+  position: sticky;
+  top: 20px;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 40px;
+  color: white;
+  font-size: 20px;
+  font-weight: 600;
+}
+
+.logo-icon {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  padding: 8px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.swift {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.nav-menu {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.nav-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 16px;
+  color: rgba(255,255,255,0.7);
+  text-decoration: none;
+  border-radius: 12px;
+  transition: all 0.3s;
+}
+
+.nav-item:hover, .nav-item.active {
+  background: rgba(102,126,234,0.2);
+  color: white;
+}
+
+/* Main Content */
+.main-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+/* Header */
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: rgba(255,255,255,0.05);
+  backdrop-filter: blur(10px);
+  padding: 20px 24px;
+  border-radius: 24px;
+}
+
+.greeting h1 {
+  color: white;
+  font-size: 24px;
+  margin-bottom: 4px;
+}
+
+.highlight {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.greeting p {
+  color: rgba(255,255,255,0.6);
+  font-size: 14px;
+}
+
+.header-actions {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+}
+
+.icon-btn {
+  background: rgba(255,255,255,0.1);
+  border: none;
+  padding: 10px;
+  border-radius: 12px;
+  cursor: pointer;
+  color: white;
+  transition: all 0.3s;
+}
+
+.icon-btn:hover {
+  background: rgba(255,255,255,0.2);
+}
+
+.avatar {
+  width: 40px;
+  height: 40px;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 600;
+  color: white;
+  font-size: 18px;
+}
+
+/* Balance Card */
+.balance-card {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  border-radius: 24px;
+  padding: 28px;
+  position: relative;
+  overflow: hidden;
+  color: white;
+}
+
+.card-glow {
+  position: absolute;
+  top: -50%;
+  right: -50%;
+  width: 200%;
+  height: 200%;
+  background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
+}
+
+.card-content {
+  position: relative;
+  z-index: 1;
+}
+
+.card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 24px;
+}
+
+.card-label {
+  font-size: 12px;
+  opacity: 0.8;
+}
+
+.balance-amount {
+  font-size: 36px;
+  font-weight: 700;
+  margin-bottom: 16px;
+}
+
+.card-number {
+  font-size: 18px;
+  letter-spacing: 2px;
+  margin-bottom: 24px;
+  font-family: monospace;
+}
+
+.card-footer {
+  display: flex;
+  gap: 32px;
+}
+
+.card-value {
+  font-size: 14px;
+  font-weight: 600;
+  margin-top: 4px;
+}
+
+/* Quick Actions */
+.quick-actions {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+}
+
+.action-btn {
+  background: rgba(255,255,255,0.05);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255,255,255,0.1);
+  padding: 16px;
+  border-radius: 16px;
+  color: white;
+  cursor: pointer;
+  transition: all 0.3s;
+  text-align: center;
+}
+
+.action-btn:hover {
+  background: rgba(102,126,234,0.2);
+  transform: translateY(-2px);
+}
+
+.action-icon {
+  font-size: 24px;
+  margin-bottom: 8px;
+}
+
+.action-btn span {
+  font-size: 12px;
+  display: block;
+}
+
+/* Send Section */
+.send-section, .transactions-section {
+  background: rgba(255,255,255,0.05);
+  backdrop-filter: blur(10px);
+  border-radius: 24px;
+  padding: 24px;
+}
+
+.section-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.section-header h2 {
+  color: white;
+  font-size: 18px;
+}
+
+.view-all {
+  color: #667eea;
+  text-decoration: none;
+  font-size: 14px;
+  transition: color 0.3s;
+}
+
+.view-all:hover {
+  color: #764ba2;
+}
+
+.send-form {
+  background: rgba(0,0,0,0.2);
+  border-radius: 16px;
+  padding: 20px;
+}
+
+.form-row {
+  display: flex;
+  gap: 16px;
+  align-items: flex-end;
+}
+
+.form-group {
+  flex: 1;
+}
+
+.form-group label {
+  display: block;
+  color: rgba(255,255,255,0.7);
+  font-size: 12px;
+  margin-bottom: 8px;
+}
+
+.recipient-select {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background: rgba(255,255,255,0.1);
+  padding: 12px;
+  border-radius: 12px;
+}
+
+.recipient-select select {
+  background: transparent;
+  border: none;
+  color: white;
+  font-size: 14px;
+  flex: 1;
+  cursor: pointer;
+}
+
+.recipient-select select option {
+  background: #302b63;
+  color: white;
+}
+
+.recipient-avatar {
+  width: 32px;
+  height: 32px;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+  font-weight: bold;
+  color: white;
+}
+
+.amount-input {
+  position: relative;
+  background: rgba(255,255,255,0.1);
+  border-radius: 12px;
+  padding: 12px;
+}
+
+.currency {
+  position: absolute;
+  left: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: rgba(255,255,255,0.7);
+  font-size: 14px;
+}
+
+.amount-input input {
+  background: transparent;
+  border: none;
+  padding-left: 25px;
+  color: white;
+  font-size: 14px;
+  width: 100%;
+  outline: none;
+}
+
+.amount-input input:focus {
+  outline: none;
+}
+
+.amount-input input::placeholder {
+  color: rgba(255,255,255,0.4);
+}
+
+.send-btn {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  border: none;
+  padding: 12px 24px;
+  border-radius: 12px;
+  color: white;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-weight: 600;
+  transition: all 0.3s;
+}
+
+.send-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 25px -5px rgba(102,126,234,0.4);
+}
+
+/* Stats Grid */
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+}
+
+.stat-card {
+  background: rgba(255,255,255,0.05);
+  backdrop-filter: blur(10px);
+  padding: 20px;
+  border-radius: 20px;
+}
+
+.stat-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
+}
+
+.stat-title {
+  color: rgba(255,255,255,0.7);
+  font-size: 12px;
+}
+
+.stat-trend {
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.stat-trend.up { color: #10b981; }
+.stat-trend.down { color: #ef4444; }
+.stat-trend.stable { color: #f59e0b; }
+
+.stat-value {
+  color: white;
+  font-size: 20px;
+  font-weight: 600;
+  margin-bottom: 12px;
+}
+
+.progress-bar {
+  background: rgba(255,255,255,0.1);
+  height: 4px;
+  border-radius: 2px;
+  overflow: hidden;
+}
+
+.progress-fill {
+  height: 100%;
+  background: linear-gradient(90deg, #667eea 0%, #764ba2 100%);
+  border-radius: 2px;
+}
+
+.progress-fill.expense { background: #ef4444; }
+.progress-fill.loan { background: #f59e0b; }
+
+/* Transactions */
+.transactions-list {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.transaction-item {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 12px;
+  background: rgba(255,255,255,0.03);
+  border-radius: 12px;
+  transition: all 0.3s;
+}
+
+.transaction-item:hover {
+  background: rgba(255,255,255,0.08);
+}
+
+.transaction-icon {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.transaction-icon.send { background: rgba(239,68,68,0.2); color: #ef4444; }
+.transaction-icon.receive { background: rgba(16,185,129,0.2); color: #10b981; }
+
+.transaction-details {
+  flex: 1;
+}
+
+.transaction-name {
+  color: white;
+  font-weight: 500;
+  margin-bottom: 4px;
+}
+
+.transaction-type {
+  color: rgba(255,255,255,0.5);
+  font-size: 12px;
+}
+
+.transaction-amount {
+  font-weight: 600;
+  font-size: 14px;
+}
+
+.transaction-amount.negative { color: #ef4444; }
+.transaction-amount.positive { color: #10b981; }
+
+.transaction-date {
+  color: rgba(255,255,255,0.5);
+  font-size: 12px;
+}
+
+/* Right Sidebar */
+.right-sidebar {
+  width: 280px;
+}
+
+.profile-card {
+  background: rgba(255,255,255,0.05);
+  backdrop-filter: blur(10px);
+  border-radius: 24px;
+  padding: 24px;
+  text-align: center;
+  position: sticky;
+  top: 20px;
+}
+
+.profile-header {
+  margin-bottom: 24px;
+}
+
+.profile-avatar {
+  width: 80px;
+  height: 80px;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 32px;
+  font-weight: 600;
+  color: white;
+  margin: 0 auto 16px;
+}
+
+.profile-card h3 {
+  color: white;
+  margin-bottom: 8px;
+  font-size: 18px;
+}
+
+.profile-email, .profile-phone, .profile-address {
+  color: rgba(255,255,255,0.6);
+  font-size: 12px;
+  margin: 4px 0;
+}
+
+.profile-address {
+  font-size: 11px;
+  margin-bottom: 0;
+}
+
+.profile-stats {
+  display: flex;
+  justify-content: space-around;
+  margin: 24px 0;
+  padding: 16px 0;
+  border-top: 1px solid rgba(255,255,255,0.1);
+  border-bottom: 1px solid rgba(255,255,255,0.1);
+}
+
+.profile-stat {
+  text-align: center;
+}
+
+.profile-stat .stat-value {
+  font-size: 18px;
+  margin-bottom: 4px;
+  color: white;
+}
+
+.profile-stat .stat-label {
+  font-size: 10px;
+  color: rgba(255,255,255,0.6);
+}
+
+.upgrade-btn {
+  width: 100%;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  border: none;
+  padding: 12px;
+  border-radius: 12px;
+  color: white;
+  cursor: pointer;
+  font-weight: 600;
+  transition: all 0.3s;
+}
+
+.upgrade-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 25px -5px rgba(102,126,234,0.4);
+}
+
+/* Nigerian specific styles */
+.ng-badge {
+  background: linear-gradient(135deg, #008751 0%, #008751 50%, #ffffff 50%, #ffffff 100%);
+  padding: 2px 8px;
+  border-radius: 20px;
+  font-size: 10px;
+  margin-left: 8px;
+}
+
+.naira-chip {
+  background: rgba(0,135,81,0.2);
+  padding: 4px 8px;
+  border-radius: 20px;
+  font-size: 14px;
+  font-weight: bold;
+}
+
+.recipient-details {
+  margin-top: 8px;
+  font-size: 11px;
+  color: rgba(255,255,255,0.5);
+}
+
+.success-message {
+  margin-top: 16px;
+  padding: 12px;
+  background: rgba(16,185,129,0.2);
+  border-radius: 12px;
+  color: #10b981;
+  text-align: center;
+  animation: fadeIn 0.5s ease;
+}
+
+.support-badge {
+  margin-top: 16px;
+  padding: 12px;
+  background: rgba(0,135,81,0.1);
+  border-radius: 12px;
+  text-align: center;
+}
+
+.support-badge small {
+  color: rgba(255,255,255,0.6);
+  font-size: 10px;
+}
+
+/* Animations */
+@keyframes fadeIn {
+  from { 
+    opacity: 0; 
+    transform: translateY(-10px); 
+  }
+  to { 
+    opacity: 1; 
+    transform: translateY(0); 
+  }
+}
+
+/* Responsive Design */
+@media (max-width: 1024px) {
+  .payday-dashboard {
+    flex-direction: column;
+  }
+  
+  .sidebar, .right-sidebar {
+    width: 100%;
+    position: static;
+  }
+  
+  .stats-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .form-row {
+    flex-direction: column;
+  }
+  
+  .quick-actions {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  
+  .card-footer {
+    flex-direction: column;
+    gap: 12px;
+  }
+}
+
+@media (max-width: 768px) {
+  .payday-dashboard {
+    padding: 12px;
+  }
+  
+  .balance-amount {
+    font-size: 24px;
+  }
+  
+  .card-number {
+    font-size: 14px;
+  }
+  
+  .transaction-item {
+    flex-wrap: wrap;
+  }
+  
+  .transaction-date {
+    width: 100%;
+    margin-left: 56px;
+  }
+}

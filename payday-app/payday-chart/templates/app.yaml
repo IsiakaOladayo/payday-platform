@@ -1,0 +1,448 @@
+metadata:
+  creationTimestamp: "2026-05-19T13:07:38Z"
+  generation: 942
+  managedFields:
+  - apiVersion: argoproj.io/v1alpha1
+    fieldsType: FieldsV1
+    fieldsV1:
+      f:spec:
+        .: {}
+        f:destination:
+          .: {}
+          f:namespace: {}
+          f:server: {}
+        f:project: {}
+        f:source:
+          .: {}
+          f:helm:
+            .: {}
+            f:valueFiles: {}
+          f:path: {}
+          f:repoURL: {}
+          f:targetRevision: {}
+        f:syncPolicy:
+          .: {}
+          f:automated:
+            .: {}
+            f:enabled: {}
+            f:prune: {}
+            f:selfHeal: {}
+          f:syncOptions: {}
+      f:status:
+        .: {}
+        f:health: {}
+        f:sourceHydrator: {}
+        f:summary: {}
+        f:sync:
+          .: {}
+          f:comparedTo:
+            .: {}
+            f:destination: {}
+            f:source: {}
+    manager: argocd-server
+    operation: Update
+    time: "2026-05-20T09:47:27Z"
+  - apiVersion: argoproj.io/v1alpha1
+    fieldsType: FieldsV1
+    fieldsV1:
+      f:status:
+        f:controllerNamespace: {}
+        f:health:
+          f:lastTransitionTime: {}
+          f:status: {}
+        f:history: {}
+        f:operationState:
+          .: {}
+          f:finishedAt: {}
+          f:message: {}
+          f:operation:
+            .: {}
+            f:initiatedBy:
+              .: {}
+              f:username: {}
+            f:retry: {}
+            f:sync:
+              .: {}
+              f:revision: {}
+              f:source:
+                .: {}
+                f:helm:
+                  .: {}
+                  f:valueFiles: {}
+                f:path: {}
+                f:repoURL: {}
+                f:targetRevision: {}
+              f:syncOptions: {}
+              f:syncStrategy:
+                .: {}
+                f:hook: {}
+          f:phase: {}
+          f:startedAt: {}
+          f:syncResult:
+            .: {}
+            f:resources: {}
+            f:revision: {}
+            f:source:
+              .: {}
+              f:helm:
+                .: {}
+                f:valueFiles: {}
+              f:path: {}
+              f:repoURL: {}
+              f:targetRevision: {}
+        f:reconciledAt: {}
+        f:resourceHealthSource: {}
+        f:resources: {}
+        f:sourceType: {}
+        f:summary:
+          f:images: {}
+        f:sync:
+          f:comparedTo:
+            f:destination:
+              f:namespace: {}
+              f:server: {}
+            f:source:
+              f:helm:
+                .: {}
+                f:valueFiles: {}
+              f:path: {}
+              f:repoURL: {}
+              f:targetRevision: {}
+          f:revision: {}
+          f:status: {}
+    manager: argocd-application-controller
+    operation: Update
+    time: "2026-05-20T09:58:00Z"
+  name: payday-platform
+  namespace: argocd
+  resourceVersion: "253494"
+  uid: b3e94b30-fd0b-42a0-a79a-5280f6205bf8
+spec:
+  destination:
+    namespace: default
+    server: https://kubernetes.default.svc
+  project: default
+  source:
+    helm:
+      valueFiles:
+      - values.yaml
+    path: payday-app/payday-chart
+    repoURL: https://github.com/payday-devops-team/payday-platform.git
+    targetRevision: HEAD
+  syncPolicy:
+    automated:
+      enabled: true
+      prune: false
+      selfHeal: false
+    syncOptions:
+    - CreateNamespace=true
+status:
+  controllerNamespace: argocd
+  health:
+    lastTransitionTime: "2026-05-20T07:32:10Z"
+    status: Healthy
+  history:
+  - deployStartedAt: "2026-05-20T06:38:29Z"
+    deployedAt: "2026-05-20T06:38:29Z"
+    id: 36
+    initiatedBy:
+      username: admin
+    revision: 0c77fc76b551943428786f824a5ef44c26df36ce
+    source:
+      path: payday-app/payday-chart
+      repoURL: https://github.com/payday-devops-team/payday-platform.git
+      targetRevision: HEAD
+  - deployStartedAt: "2026-05-20T07:32:06Z"
+    deployedAt: "2026-05-20T07:32:07Z"
+    id: 37
+    initiatedBy:
+      automated: true
+    revision: 8128ec4b251618d2c76c5d10c6bbab97f9c717ad
+    source:
+      path: payday-app/payday-chart
+      repoURL: https://github.com/payday-devops-team/payday-platform.git
+      targetRevision: HEAD
+  - deployStartedAt: "2026-05-20T07:33:19Z"
+    deployedAt: "2026-05-20T07:33:19Z"
+    id: 38
+    initiatedBy:
+      username: admin
+    revision: 8128ec4b251618d2c76c5d10c6bbab97f9c717ad
+    source:
+      path: payday-app/payday-chart
+      repoURL: https://github.com/payday-devops-team/payday-platform.git
+      targetRevision: HEAD
+  - deployStartedAt: "2026-05-20T07:38:34Z"
+    deployedAt: "2026-05-20T07:38:35Z"
+    id: 39
+    initiatedBy:
+      username: admin
+    revision: 8128ec4b251618d2c76c5d10c6bbab97f9c717ad
+    source:
+      path: payday-app/payday-chart
+      repoURL: https://github.com/payday-devops-team/payday-platform.git
+      targetRevision: HEAD
+  - deployStartedAt: "2026-05-20T07:57:23Z"
+    deployedAt: "2026-05-20T07:57:24Z"
+    id: 40
+    initiatedBy:
+      username: admin
+    revision: 8128ec4b251618d2c76c5d10c6bbab97f9c717ad
+    source:
+      path: payday-app/payday-chart
+      repoURL: https://github.com/payday-devops-team/payday-platform.git
+      targetRevision: HEAD
+  - deployStartedAt: "2026-05-20T08:21:15Z"
+    deployedAt: "2026-05-20T08:21:16Z"
+    id: 41
+    initiatedBy:
+      username: admin
+    revision: ba63263409c2215c18b7eb8ac6f283a6295a8c15
+    source:
+      path: payday-app/payday-chart
+      repoURL: https://github.com/payday-devops-team/payday-platform.git
+      targetRevision: HEAD
+  - deployStartedAt: "2026-05-20T08:24:17Z"
+    deployedAt: "2026-05-20T08:24:17Z"
+    id: 42
+    initiatedBy:
+      username: admin
+    revision: ba63263409c2215c18b7eb8ac6f283a6295a8c15
+    source:
+      path: payday-app/payday-chart
+      repoURL: https://github.com/payday-devops-team/payday-platform.git
+      targetRevision: HEAD
+  - deployStartedAt: "2026-05-20T09:30:28Z"
+    deployedAt: "2026-05-20T09:30:29Z"
+    id: 43
+    initiatedBy:
+      username: admin
+    revision: ba63263409c2215c18b7eb8ac6f283a6295a8c15
+    source:
+      path: payday-app/payday-chart
+      repoURL: https://github.com/payday-devops-team/payday-platform.git
+      targetRevision: HEAD
+  - deployStartedAt: "2026-05-20T09:34:55Z"
+    deployedAt: "2026-05-20T09:34:56Z"
+    id: 44
+    initiatedBy:
+      username: admin
+    revision: ba63263409c2215c18b7eb8ac6f283a6295a8c15
+    source:
+      path: payday-app/payday-chart
+      repoURL: https://github.com/payday-devops-team/payday-platform.git
+      targetRevision: HEAD
+  - deployStartedAt: "2026-05-20T09:47:27Z"
+    deployedAt: "2026-05-20T09:47:28Z"
+    id: 45
+    initiatedBy:
+      username: admin
+    revision: ba63263409c2215c18b7eb8ac6f283a6295a8c15
+    source:
+      helm:
+        valueFiles:
+        - values.yaml
+      path: payday-app/payday-chart
+      repoURL: https://github.com/payday-devops-team/payday-platform.git
+      targetRevision: HEAD
+  operationState:
+    finishedAt: "2026-05-20T09:47:28Z"
+    message: successfully synced (all tasks run)
+    operation:
+      initiatedBy:
+        username: admin
+      retry: {}
+      sync:
+        revision: ba63263409c2215c18b7eb8ac6f283a6295a8c15
+        source:
+          helm:
+            valueFiles:
+            - values.yaml
+          path: payday-app/payday-chart
+          repoURL: https://github.com/payday-devops-team/payday-platform.git
+          targetRevision: HEAD
+        syncOptions:
+        - CreateNamespace=true
+        syncStrategy:
+          hook: {}
+    phase: Succeeded
+    startedAt: "2026-05-20T09:47:27Z"
+    syncResult:
+      resources:
+      - group: ""
+        hookPhase: Running
+        kind: Service
+        message: service/redis-service unchanged
+        name: redis-service
+        namespace: default
+        status: Synced
+        syncPhase: Sync
+        version: v1
+      - group: ""
+        hookPhase: Running
+        kind: Service
+        message: service/payday-frontend-service unchanged
+        name: payday-frontend-service
+        namespace: default
+        status: Synced
+        syncPhase: Sync
+        version: v1
+      - group: ""
+        hookPhase: Running
+        kind: Service
+        message: service/payday-api-service unchanged
+        name: payday-api-service
+        namespace: default
+        status: Synced
+        syncPhase: Sync
+        version: v1
+      - group: apps
+        hookPhase: Running
+        images:
+        - postgres:15-alpine
+        kind: Deployment
+        message: deployment.apps/payday-postgres unchanged
+        name: payday-postgres
+        namespace: default
+        status: Synced
+        syncPhase: Sync
+        version: v1
+      - group: apps
+        hookPhase: Running
+        images:
+        - redis:7
+        kind: Deployment
+        message: deployment.apps/redis unchanged
+        name: redis
+        namespace: default
+        status: Synced
+        syncPhase: Sync
+        version: v1
+      - group: apps
+        hookPhase: Running
+        images:
+        - 618015514540.dkr.ecr.us-east-1.amazonaws.com/payday/api:latest
+        kind: Deployment
+        message: deployment.apps/payday-api unchanged
+        name: payday-api
+        namespace: default
+        status: Synced
+        syncPhase: Sync
+        version: v1
+      - group: apps
+        hookPhase: Running
+        images:
+        - nginx:alpine
+        kind: Deployment
+        message: deployment.apps/payday-frontend unchanged
+        name: payday-frontend
+        namespace: default
+        status: Synced
+        syncPhase: Sync
+        version: v1
+      - group: apps
+        hookPhase: Running
+        images:
+        - 618015514540.dkr.ecr.us-east-1.amazonaws.com/payday/worker:latest
+        kind: Deployment
+        message: deployment.apps/payday-worker unchanged
+        name: payday-worker
+        namespace: default
+        status: Synced
+        syncPhase: Sync
+        version: v1
+      revision: ba63263409c2215c18b7eb8ac6f283a6295a8c15
+      source:
+        helm:
+          valueFiles:
+          - values.yaml
+        path: payday-app/payday-chart
+        repoURL: https://github.com/payday-devops-team/payday-platform.git
+        targetRevision: HEAD
+  reconciledAt: "2026-05-20T09:58:00Z"
+  resourceHealthSource: appTree
+  resources:
+  - health:
+      status: Healthy
+    kind: Service
+    name: payday-api-service
+    namespace: default
+    status: Synced
+    version: v1
+  - health:
+      status: Healthy
+    kind: Service
+    name: payday-frontend-service
+    namespace: default
+    status: Synced
+    version: v1
+  - health:
+      status: Healthy
+    kind: Service
+    name: redis-service
+    namespace: default
+    status: Synced
+    version: v1
+  - group: apps
+    health:
+      status: Healthy
+    kind: Deployment
+    name: payday-api
+    namespace: default
+    status: Synced
+    version: v1
+  - group: apps
+    health:
+      status: Healthy
+    kind: Deployment
+    name: payday-frontend
+    namespace: default
+    status: Synced
+    version: v1
+  - group: apps
+    health:
+      status: Healthy
+    kind: Deployment
+    name: payday-postgres
+    namespace: default
+    status: Synced
+    version: v1
+  - group: apps
+    health:
+      status: Healthy
+    kind: Deployment
+    name: payday-worker
+    namespace: default
+    status: Synced
+    version: v1
+  - group: apps
+    health:
+      status: Healthy
+    kind: Deployment
+    name: redis
+    namespace: default
+    status: Synced
+    version: v1
+  sourceHydrator: {}
+  sourceType: Helm
+  summary:
+    images:
+    - 618015514540.dkr.ecr.us-east-1.amazonaws.com/payday/api:latest
+    - 618015514540.dkr.ecr.us-east-1.amazonaws.com/payday/worker:latest
+    - nginx:alpine
+    - postgres:15-alpine
+    - redis:7
+  sync:
+    comparedTo:
+      destination:
+        namespace: default
+        server: https://kubernetes.default.svc
+      source:
+        helm:
+          valueFiles:
+          - environments/production/values.yaml
+        path: payday-app/payday-chart
+        repoURL: https://github.com/payday-devops-team/payday-platform.git
+        targetRevision: HEAD
+    revision: ba63263409c2215c18b7eb8ac6f283a6295a8c15
+    status: Synced

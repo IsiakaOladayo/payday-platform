@@ -1,0 +1,80 @@
+#!/bin/bash
+cd ~/payday-app/frontend
+
+echo "========================================="
+echo "🔍 CHECKING IF REACT APP WAS BUILT YESTERDAY"
+echo "========================================="
+
+# Check if dist exists
+if [ -d "dist" ]; then
+    echo -e "\n✅ Build directory exists!"
+    
+    # Get build date
+    BUILD_DATE=$(stat -c %y dist/ 2>/dev/null || stat -f %Sm dist/ 2>/dev/null)
+    echo -e "\n📅 Build directory date: $BUILD_DATE"
+    
+    # Check if it's from yesterday
+    YESTERDAY=$(date -d "yesterday" +%Y-%m-%d)
+    BUILD_DATE_ONLY=$(date -r dist +%Y-%m-%d 2>/dev/null || echo "unknown")
+    
+    if [ "$BUILD_DATE_ONLY" = "$YESTERDAY" ]; then
+        echo -e "✅ YES! Built on $BUILD_DATE_ONLY (yesterday)"
+    else
+        echo -e "⚠️  Build date: $BUILD_DATE_ONLY (not yesterday)"
+    fi
+    
+    # Show file count and size
+    FILE_COUNT=$(find dist -type f | wc -l)
+    TOTAL_SIZE=$(du -sh dist | cut -f1)
+    echo -e "\n📊 Build stats:"
+    echo "   - Files: $FILE_COUNT"
+    echo "   - Size: $TOTAL_SIZE"
+    
+    # Check if index.html exists
+    if [ -f "dist/index.html" ]; then
+        echo "   - ✅ index.html present"
+        
+        # Show when index.html was created
+        INDEX_DATE=$(stat -c %y dist/index.html 2>/dev/null || stat -f %Sm dist/index.html 2>/dev/null)
+        echo "   - 📅 index.html: $INDEX_DATE"
+    fi
+    
+    # Check for JS and CSS files
+    JS_COUNT=$(find dist/assets -name "*.js" 2>/dev/null | wc -l)
+    CSS_COUNT=$(find dist/assets -name "*.css" 2>/dev/null | wc -l)
+    echo "   - 📦 $JS_COUNT JavaScript files"
+    echo "   - 🎨 $CSS_COUNT CSS files"
+    
+else
+    echo -e "\n❌ No build found in dist/ directory"
+    echo "   The app has NOT been built yet"
+fi
+
+# Check Docker image age
+echo -e "\n========================================="
+echo "🐳 CHECKING DOCKER IMAGE"
+echo "========================================="
+
+if docker images | grep -q "payday-frontend"; then
+    IMAGE_INFO=$(docker images payday-frontend:latest --format "table {{.CreatedAt}}\t{{.Size}}")
+    echo -e "\n✅ Docker image exists:"
+    echo "$IMAGE_INFO"
+    
+    # Check if image was created yesterday
+    IMAGE_DATE=$(docker inspect payday-frontend:latest --format='{{.Created}}' | cut -dT -f1)
+    if [ "$IMAGE_DATE" = "$YESTERDAY" ]; then
+        echo -e "✅ Docker image was built yesterday!"
+    else
+        echo -e "⚠️  Docker image built on: $IMAGE_DATE"
+    fi
+else
+    echo -e "\n❌ No Docker image found"
+fi
+
+echo -e "\n========================================="
+echo "💡 QUICK VERIFICATION COMMANDS"
+echo "========================================="
+echo "Check build date: ls -la dist/"
+echo "Check build size: du -sh dist/"
+echo "Test build: cd dist && python3 -m http.server 3000"
+echo "========================================="

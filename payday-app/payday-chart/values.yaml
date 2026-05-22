@@ -2,8 +2,8 @@
 
 frontend:
   image:
-    repository: nginx
-    tag: alpine
+    repository: 618015514540.dkr.ecr.us-east-1.amazonaws.com/payday/frontend
+    tag: latest
   replicaCount: 1
 
 api:
