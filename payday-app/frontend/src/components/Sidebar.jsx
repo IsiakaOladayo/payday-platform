@@ -2,8 +2,8 @@ import { LayoutDashboard, Wallet, User, Settings, HelpCircle } from 'lucide-reac
 
 export const Sidebar = () => {
   return (
-    <aside className="w-64 bg-white border-r p-6 flex flex-col h-screen">
-      <h1 className="font-bold text-xl mb-10 text-slate-900">Mini Finance</h1>
+    <aside className="w-64 bg-white border-r p-6 h-screen">
+      <h1 className="font-bold text-xl mb-10 text-slate-900">Payday Swift</h1>
       <nav className="flex flex-col gap-6 text-slate-600">
         <a href="#" className="flex items-center gap-3 font-bold text-red-500">
           <LayoutDashboard size={20} /> Overview
