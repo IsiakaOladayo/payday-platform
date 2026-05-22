@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
       - name: frontend
-        image: dupebayo1619/payday-frontend:v1
+        image: 618015514540.dkr.ecr.us-east-1.amazonaws.com/payday/frontend:v2
         imagePullPolicy: IfNotPresent
         ports:
         - containerPort: 80
