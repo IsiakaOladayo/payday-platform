@@ -75,7 +75,7 @@ const PaydaySwift = () => {
           {/* Header */}
           <div className="header">
             <div className="greeting">
-              <h1>Welcome back, <span className="highlight">Chimamanda</span> 🇳🇬</h1>
+              <h1>Salut, <span className="highlight">Chimamanda</span> 🇳🇬</h1>
               <p>Your financial hub in Nigeria</p>
             </div>
             <div className="header-actions">
