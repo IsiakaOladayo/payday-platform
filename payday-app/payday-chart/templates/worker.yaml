@@ -1,26 +1,25 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: payday-worker
-  namespace: {{ .Release.Namespace }}
+  name: {{ .Values.worker.name }}
+  namespace: {{ .Values.namespace }}
 spec:
-  replicas: {{ .Values.worker.replicaCount | default 3 }}
+  replicas: {{ .Values.worker.replicas }}
   selector:
     matchLabels:
-      app: payday-worker
+      app: {{ .Values.worker.name }}
   template:
     metadata:
       labels:
-        app: payday-worker
+        app: {{ .Values.worker.name }}
     spec:
       containers:
-        - name: worker
-          image: '{{ .Values.worker.image.repository }}:{{ .Values.worker.image.tag | default "latest" }}'
-          imagePullPolicy: Always
-          env:
-            - name: DB_HOST
-              value: "payday-postgres-service"
-            - name: DB_PASSWORD
-              value: "vault_secret_pass"
-            - name: REDIS_HOST
-              value: "redis-service"
+      - name: worker
+        image: "{{ .Values.worker.image.repository }}:{{ .Values.worker.image.tag }}"
+        env:
+        - name: DB_HOST
+          value: {{ .Values.postgres.name }}
+        - name: DB_PASSWORD
+          value: {{ .Values.postgres.password }}
+        - name: REDIS_HOST
+          value: {{ .Values.redis.name }}

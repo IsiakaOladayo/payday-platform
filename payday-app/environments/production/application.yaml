@@ -1,0 +1,42 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: payday-production
+  namespace: argocd
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+spec:
+  project: default
+  source:
+    repoURL: https://github.com/payday-devoops-team/payday-platform.git
+    targetRevision: master
+    path: payday-chart
+    helm:
+      valueFiles:
+        - environments/production/values.yaml
+      values: |
+        namespace: production
+        frontend:
+          replicaCount: 3
+          tag: stable
+        api:
+          replicaCount: 3
+          tag: stable
+        worker:
+          replicaCount: 2
+          tag: stable
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: production
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true
+    retry:
+      limit: 5
+      backoff:
+        duration: 5s
+        factor: 2
+        maxDuration: 3m
